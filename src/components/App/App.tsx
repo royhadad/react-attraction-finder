@@ -6,17 +6,6 @@ import Attraction from "../../types/Attraction";
 import {GetAttractionsBody} from "../../../server/apiRoutes";
 import {getAttractionsSortedByDistanceFromUserLocation} from "../../utils/attractionsUtils";
 
-function getLocation(callback: (position: Location) => void) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position): void => {
-            const {longitude, latitude} = position.coords;
-            callback({long: longitude, lat: latitude});
-        });
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
-}
-
 const App: React.FC = () => {
     const classes = styles();
 
@@ -24,11 +13,15 @@ const App: React.FC = () => {
     const [attractions, setAttractions] = useState<Attraction[] | undefined>(undefined);
 
     const showUserLocation = (): void => {
-        getLocation((position) => {
-            setUserLocation(position);
-        })
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position): void => {
+                const {longitude, latitude} = position.coords;
+                setUserLocation(({latitude: longitude, longitude: latitude}));
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
     }
-
 
     const showNearestAttractions = async (): Promise<void> => {
         const response = await axios.get<GetAttractionsBody>('api/getAttractions');
@@ -52,8 +45,8 @@ const App: React.FC = () => {
                 {userLocation && (
                     <div>
                         <div>
-                            <div>lat: {userLocation.lat}</div>
-                            <div>long: {userLocation.long}</div>
+                            <div>lat: {userLocation.longitude}</div>
+                            <div>long: {userLocation.latitude}</div>
                         </div>
                         <button onClick={showNearestAttractions}>
                             Show nearest attractions!
@@ -61,11 +54,20 @@ const App: React.FC = () => {
                         {
                             attractions && (
                                 <div>
+                                    <div>
+                                        The best attraction type is!
+                                    </div>
+                                    <div>
                                     {attractions.map((attraction) => (
                                         <div>
-                                            {JSON.stringify(attraction)}
+                                            <div>{attraction.Name}</div>
+                                            <div>{attraction.Id}</div>
+                                            <div>{attraction.Address}</div>
+                                            <div>{attraction.Opening_Hours}</div>
+                                            <div>{attraction.URL}</div>
                                         </div>
                                     ))}
+                                    </div>
                                 </div>
                             )
                         }
