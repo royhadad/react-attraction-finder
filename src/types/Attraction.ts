@@ -14,15 +14,15 @@ export default interface Attraction {
     "Diving_beach": string;
     "Email": string;
     "Notes": string;
-    "Notes_for_opening_hours":string;
+    "Notes_for_opening_hours": string;
     "Opening_Hours": string;
     "Parking": string;
     "Phone": string;
     "Region": string;
-    "Scheduled_visits":string;
+    "Scheduled_visits": string;
     "Suitable_for_Children": string;
     "Surfing_beach": string;
     "URL": string;
-    "X": string;
-    "Y": string;
+    "X": number;
+    "Y": number;
 }
