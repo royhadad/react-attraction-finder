@@ -6,14 +6,11 @@ import Attraction from "../../types/Attraction";
 import {GetAttractionsBody} from "../../../server/apiRoutes";
 import {getAttractionsSortedByDistanceFromUserLocation} from "../../utils/attractionsUtils";
 
-function getLocation(callback) {
+function getLocation(callback: (position: Location) => void) {
     if (navigator.geolocation) {
-        var lat_lng = navigator.geolocation.getCurrentPosition(function (position) {
-            console.log(position);
-            var user_position = {};
-            user_position.lat = position.coords.latitude;
-            user_position.lng = position.coords.longitude;
-            callback(user_position);
+        navigator.geolocation.getCurrentPosition((position): void => {
+            const {longitude, latitude} = position.coords;
+            callback({long: longitude, lat: latitude});
         });
     } else {
         alert("Geolocation is not supported by this browser.");
@@ -28,7 +25,6 @@ const App: React.FC = () => {
 
     const showUserLocation = (): void => {
         getLocation((position) => {
-            console.log('position', position)
             setUserLocation(position);
         })
     }
