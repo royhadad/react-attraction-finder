@@ -12,6 +12,5 @@ fs.readFile('./server/attractions.json', 'utf8', (err, data) => {
 
     fs.writeFile('attractionsMapped.json', finishedJson, function (err) {
         if (err) return console.log(err);
-        console.log('Hello World > helloworld.txt');
     });
 })
