@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.10",
     "axios": "^0.21.1",
     "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
     "react": "^17.0.1",
@@ -29,10 +30,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "dev:server": "ts-node-dev --respawn --project ./tsconfig.server.json server/server.ts",
+    "dev:server": "ts-node-dev --respawn --project ./tsconfig.server.json server",
     "dev:client": "react-scripts start",
     "dev": "concurrently npm:dev:*",
-    "start": "ts-node --transpile-only --project ./tsconfig.server.json server/server.ts",
+    "start": "ts-node --transpile-only --project ./tsconfig.server.json server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
