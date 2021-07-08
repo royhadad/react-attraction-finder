@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import styles from './styles';
 import {AppContext} from "../../components/App/App";
 import text from './text';
+import axios from "axios";
 
 const Home: React.FC = () => {
     const classes = styles();
@@ -16,8 +17,7 @@ const Home: React.FC = () => {
                 const {longitude, latitude} = position.coords;
                 setUserLocation(({longitude, latitude}));
             }, (positionError) => {
-                console.error('positionError', positionError);
-                alert('Error, please try again');
+                alert(`positionError ${positionError.message}`);
             });
         } else {
             alert("Geolocation is not supported by this browser.");

@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import {apiRoutes} from './apiRoutes';
 import favicon from 'serve-favicon';
+import bodyParser from "body-parser";
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -15,6 +16,7 @@ app.get('/ping', function (req, res) {
     return res.send('pong');
 });
 
+app.use(bodyParser.json())
 app.use(apiRoutes);
 
 if (!isDev) {
