@@ -112,8 +112,7 @@ const Search: React.FC = () => {
                                                 <div>{text.he.attractionOpeningHours}&nbsp;{attraction.Opening_Hours}</div>
                                                 <div>
                                                     <a href={attraction.URL}
-                                                       className={classes.websiteLink}>{text.he.toWebsite}
-                                                    </a>
+                                                       className={classes.websiteLink}>{text.he.toWebsite}</a>
                                                 </div>
                                                 {isMostCommonAttractionTypeSelected && (
                                                     <div>{text.he.distanceFromYourLocation}&nbsp;{Math.round(attraction.distanceFromUser)}&nbsp;{text.he.km}</div>
