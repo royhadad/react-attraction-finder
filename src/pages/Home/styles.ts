@@ -1,13 +1,6 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const styles = makeStyles((theme) => {
-    const standardBorderMixin = {
-        borderRadius: '0',
-        [theme.breakpoints.up('md')]: {
-            borderRadius: '0.5rem'
-        }
-    };
-
     return {
         root: {},
         mainContainer: {

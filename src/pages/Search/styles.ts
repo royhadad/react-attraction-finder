@@ -1,6 +1,6 @@
 import {lighten, makeStyles} from "@material-ui/core/styles";
 
-const lightPeach = '#ffd8b1';
+const LIGHT_PEACH = '#ffd8b1';
 const styles = makeStyles((theme) => {
     const standardBorderMixin = {
         border: '1px solid #aaaaaa',
@@ -36,14 +36,14 @@ const styles = makeStyles((theme) => {
             gap: '0.5rem',
             padding: '0.5rem 0.5rem',
             alignItems: 'flex-start',
-            backgroundColor: lightPeach,
+            backgroundColor: LIGHT_PEACH,
             ...standardBorderMixin
         },
         addToFavorites: {
             cursor: 'pointer',
             padding: '0.5rem',
             borderRadius: '0.5rem',
-            backgroundColor: lighten(lightPeach, 0.55)
+            backgroundColor: lighten(LIGHT_PEACH, 0.55)
         },
         websiteLink: {
             color: 'black',

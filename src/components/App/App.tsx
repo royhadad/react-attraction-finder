@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import styles from './styles';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import styles from './styles';
 import Home from "../../pages/Home";
 import Search from "../../pages/Search";
 import Location from "../../types/Location";
@@ -28,12 +28,8 @@ const App: React.FC = () => {
                 <div className={classes.appContainer}>
                     <Router>
                         <Switch>
-                            <Route path="/search">
-                                <Search/>
-                            </Route>
-                            <Route path="/">
-                                <Home/>
-                            </Route>
+                            <Route path="/search" component={Search}/>
+                            <Route path="/" component={Home}/>
                         </Switch>
                     </Router>
                 </div>

@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import {useToggle} from "react-use";
+import axios from "axios";
 import styles from "./styles";
 import {AppContext} from "../../components/App/App";
-import {useHistory} from 'react-router-dom';
 import Attraction, {AttractionWithDistanceFromUser} from "../../types/Attraction";
 import {
     AttractionType,
@@ -9,8 +11,6 @@ import {
     getAttractionWithDistanceFromUser,
     getMostCommonAttractionTypeIn40KMRadius
 } from "../../utils/attractions";
-import {useToggle} from "react-use";
-import axios from "axios";
 import {GetAttractionsBody} from "../../../server/apiRoutes";
 import text from "./text";
 
@@ -25,6 +25,7 @@ const Search: React.FC = () => {
     const [attractions, setAttractions] = useState<AttractionWithDistanceFromUser[] | undefined>(undefined);
     const [mostCommonAttractionTypeIn40KMRadius, setMostCommonAttractionTypeIn40KMRadius] = useState<AttractionType | undefined>(undefined);
     const [isMostCommonAttractionTypeSelected, toggleIsMostCommonAttractionTypeSelected] = useToggle(false);
+    // Gets the items from local storage on initial render
     const [favoriteAttractions, setFavoriteAttractions] = useState<FavoriteAttractions>(JSON.parse(localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY) || "{}") as FavoriteAttractions);
 
     useEffect(function fetchAttractionsOnMount(): void {
@@ -49,7 +50,7 @@ const Search: React.FC = () => {
         fetchAttractions().catch((e) => {
             console.error(e);
         })
-        // will also re-fetch if userLocation changes (shouldn't happen)
+        // will also re-fetch if userLocation changes (shouldn't happen without a refresh)
     }, [userLocation])
     const isAttractionFavorite = (attraction: Attraction): boolean => (Boolean(favoriteAttractions[attraction.Id]));
     const toggleAttractionInFavorites = ({Id}: Attraction): void => {
