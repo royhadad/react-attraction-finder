@@ -12,6 +12,7 @@ import {
 import {useToggle} from "react-use";
 import axios from "axios";
 import {GetAttractionsBody} from "../../../server/apiRoutes";
+import text from "./text";
 
 const LOCAL_STORAGE_FAVORITES_KEY = 'favoriteAttractions';
 type FavoriteAttractions = Record<Attraction['Id'], boolean>;
@@ -69,44 +70,56 @@ const Search: React.FC = () => {
             {
                 (attractions === undefined ?
                     (
-                        <div>loading...</div>
+                        <div>{text.he.loading}</div>
                     ) : (
                         <div>
                             <div>
                                 {mostCommonAttractionTypeIn40KMRadius ? (
-                                    <div onClick={toggleIsMostCommonAttractionTypeSelected}
-                                         className={classes.mostCommonAttractionType}
-                                         style={{backgroundColor: isMostCommonAttractionTypeSelected ? 'lightblue' : 'white'}}>
-                                        The most common attraction type in 40 km radius
-                                        is: {mostCommonAttractionTypeIn40KMRadius}
+                                    <div
+                                        onClick={toggleIsMostCommonAttractionTypeSelected}
+                                        className={classes.mostCommonAttractionType}
+                                        style={{backgroundColor: isMostCommonAttractionTypeSelected ? 'lightblue' : undefined}}
+                                    >
+                                        {text.he.mostCommonAttractionTypeIn40KmRadius}
+                                        &nbsp;
+                                        <span className={classes.mostCommonAttractionTypeSelected}>
+                                            {mostCommonAttractionTypeIn40KMRadius}
+                                        </span>
+                                        {isMostCommonAttractionTypeSelected && (
+                                            <>&nbsp;({text.he.showing}&nbsp;{mostCommonAttractionTypeIn40KMRadius}&nbsp;{text.he.only})</>
+                                        )}
                                     </div>
                                 ) : (
                                     <div>
-                                        There are no attractions in a 40 km radius
+                                        {text.he.noAttractionsFoundIn40KmRadius}
                                     </div>
                                 )}
                             </div>
-                            <div>
+                            <div className={classes.attractionsList}>
                                 {
                                     (
+                                        // Might consider optimizing by only filtering once
                                         isMostCommonAttractionTypeSelected ?
                                             (attractions.filter((attraction) => (attraction.Attraction_Type === mostCommonAttractionTypeIn40KMRadius))) :
                                             (attractions)
                                     )
                                         .map((attraction) => (
-                                            <div className={classes.attractionContainer} key={attraction.Id}>
-                                                <div>{attraction.Name}</div>
-                                                <div>{attraction.Id}</div>
-                                                <div>{attraction.Address}</div>
-                                                <div>{attraction.Opening_Hours}</div>
-                                                <div>{attraction.URL}</div>
+                                            <div className={classes.attractionsListItem} key={attraction.Id}>
+                                                <div>{text.he.attractionName}&nbsp;{attraction.Name}</div>
+                                                <div>{text.he.attractionId}&nbsp;{attraction.Id}</div>
+                                                <div>{text.he.attractionAddress}&nbsp;{attraction.Address}</div>
+                                                <div>{text.he.attractionOpeningHours}&nbsp;{attraction.Opening_Hours}</div>
+                                                <div>
+                                                    <a href={attraction.URL}
+                                                       className={classes.websiteLink}>{text.he.toWebsite}
+                                                    </a>
+                                                </div>
                                                 <div
                                                     onClick={() => (toggleAttractionInFavorites(attraction))}
                                                     className={classes.addToFavorites}
-                                                    style={{
-                                                        backgroundColor: isAttractionFavorite(attraction) ? 'lightblue' : 'white'
-                                                    }}>
-                                                    Add to favorites
+                                                    style={{backgroundColor: isAttractionFavorite(attraction) ? 'lightblue' : undefined}}
+                                                >
+                                                    {isAttractionFavorite(attraction) ? (text.he.removeFromFavorites) : (text.he.addToFavorites)}
                                                 </div>
                                             </div>
                                         ))

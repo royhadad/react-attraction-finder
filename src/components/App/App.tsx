@@ -16,7 +16,6 @@ export const AppContext = React.createContext<AppContextType>({
 });
 
 const App: React.FC = () => {
-    // eslint-disable-next-line
     const classes = styles();
     const [userLocation, setUserLocation] = useState<Location | undefined>(undefined);
 
@@ -25,16 +24,20 @@ const App: React.FC = () => {
             userLocation,
             setUserLocation
         }}>
-            <Router>
-                <Switch>
-                    <Route path="/search">
-                        <Search/>
-                    </Route>
-                    <Route path="/">
-                        <Home/>
-                    </Route>
-                </Switch>
-            </Router>
+            <div className={classes.root}>
+                <div className={classes.appContainer}>
+                    <Router>
+                        <Switch>
+                            <Route path="/search">
+                                <Search/>
+                            </Route>
+                            <Route path="/">
+                                <Home/>
+                            </Route>
+                        </Switch>
+                    </Router>
+                </div>
+            </div>
         </AppContext.Provider>
     )
 }

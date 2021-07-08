@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import styles from './styles';
 import {AppContext} from "../../components/App/App";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import text from './text';
 
 const Home: React.FC = () => {
     const classes = styles();
@@ -13,7 +14,7 @@ const Home: React.FC = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position): void => {
                 const {longitude, latitude} = position.coords;
-                setUserLocation(({latitude: longitude, longitude: latitude}));
+                setUserLocation(({latitude, longitude}));
             });
         } else {
             alert("Geolocation is not supported by this browser.");
@@ -27,18 +28,13 @@ const Home: React.FC = () => {
     return (
         <div className={classes.root}>
             <div className={classes.mainContainer}>
-                <h1>Attractions Finder</h1>
-                <button onClick={showUserLocation}>show my location!</button>
+                <div className={classes.title}>{text.he.title}</div>
+                <div onClick={showUserLocation} className={classes.standardButton}>{text.he.showLocation}</div>
                 {userLocation && (
-                    <div>
-                        <div>
-                            <div>lat: {userLocation.longitude}</div>
-                            <div>long: {userLocation.latitude}</div>
-                        </div>
-                        <button onClick={gotoSearch}>
-                            Show nearest attractions!
-                        </button>
-                    </div>
+                    <>
+                        <div>longitude: {userLocation.longitude}, latitude: {userLocation.latitude}</div>
+                        <div onClick={gotoSearch} className={classes.standardButton}>{text.he.findAttractionsNearby}</div>
+                    </>
                 )}
             </div>
         </div>

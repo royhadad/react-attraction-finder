@@ -3,7 +3,7 @@ import Location from "../types/Location";
 import {distanceInKmBetweenEarthCoordinates} from "./locations";
 
 function getAttractionLocation(attraction: Attraction): Location {
-    return {longitude: attraction.Y, latitude: attraction.X};
+    return {longitude: attraction.X, latitude: attraction.Y};
 }
 
 export function getAttractionWithDistanceFromUser(userLocation: Location, attraction: Attraction): AttractionWithDistanceFromUser {
