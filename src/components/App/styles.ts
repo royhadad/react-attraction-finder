@@ -4,12 +4,14 @@ const styles = makeStyles((theme) => {
     return {
         root: {
             direction: 'rtl',
-            width: '100%'
+            width: '100%',
+            boxSizing: 'border-box',
+            minHeight: '100vh'
         },
         appContainer: {
             maxWidth: theme.breakpoints.values.md,
             width: '100%',
-            margin: '0 auto',
+            padding: '0 auto',
             [theme.breakpoints.up('md')]: {
                 margin: '3rem auto'
             }

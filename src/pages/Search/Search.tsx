@@ -114,6 +114,9 @@ const Search: React.FC = () => {
                                                        className={classes.websiteLink}>{text.he.toWebsite}
                                                     </a>
                                                 </div>
+                                                {isMostCommonAttractionTypeSelected && (
+                                                    <div>{text.he.distanceFromYourLocation}&nbsp;{Math.round(attraction.distanceFromUser)}&nbsp;{text.he.km}</div>
+                                                )}
                                                 <div
                                                     onClick={() => (toggleAttractionInFavorites(attraction))}
                                                     className={classes.addToFavorites}

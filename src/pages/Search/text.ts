@@ -8,11 +8,12 @@ const text = {
         attractionId: 'מספר מזהה:',
         attractionAddress: 'כתובת:',
         attractionOpeningHours: 'שעות פתיחה:',
-        distanceFromUser: 'מרחק ממיקומך:',
+        distanceFromYourLocation: 'מרחק ממיקומך:',
         toWebsite: 'לינק לאתר',
         loading: 'טוען...',
         showing: 'מציג',
-        only: 'בלבד'
+        only: 'בלבד',
+        km: 'ק"מ'
     }
 }
 
