@@ -3,7 +3,6 @@ import {useHistory} from 'react-router-dom';
 import styles from './styles';
 import {AppContext} from "../../components/App/App";
 import text from './text';
-import axios from "axios";
 
 const Home: React.FC = () => {
     const classes = styles();
