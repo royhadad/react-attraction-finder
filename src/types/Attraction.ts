@@ -26,3 +26,5 @@ export default interface Attraction {
     "X": number;
     "Y": number;
 }
+
+export type AttractionWithDistanceFromUser = Attraction & {distanceFromUser: number}

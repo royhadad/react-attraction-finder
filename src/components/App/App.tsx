@@ -2,15 +2,18 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './styles';
 import Location from "../../types/Location";
-import Attraction from "../../types/Attraction";
+import {AttractionWithDistanceFromUser} from "../../types/Attraction";
 import {GetAttractionsBody} from "../../../server/apiRoutes";
-import {getAttractionsSortedByDistanceFromUserLocation} from "../../utils/attractionsUtils";
+import {
+    getAttractionsSortedByDistanceFromUserLocation,
+    getAttractionWithDistanceFromUser
+} from "../../utils/attractions";
 
 const App: React.FC = () => {
     const classes = styles();
 
     const [userLocation, setUserLocation] = useState<Location | undefined>(undefined);
-    const [attractions, setAttractions] = useState<Attraction[] | undefined>(undefined);
+    const [attractions, setAttractions] = useState<AttractionWithDistanceFromUser[] | undefined>(undefined);
 
     const showUserLocation = (): void => {
         if (navigator.geolocation) {
@@ -32,7 +35,8 @@ const App: React.FC = () => {
             console.error('user location was not set!')
             return;
         } else {
-            const orderedAttractions = getAttractionsSortedByDistanceFromUserLocation(userLocation, unorderedAttractions);
+            const unorderedAttractionsWithDistanceFromUser = unorderedAttractions.map((attraction) => (getAttractionWithDistanceFromUser(userLocation, attraction)));
+            const orderedAttractions = getAttractionsSortedByDistanceFromUserLocation(userLocation, unorderedAttractionsWithDistanceFromUser);
             setAttractions(orderedAttractions)
         }
     };
@@ -58,15 +62,15 @@ const App: React.FC = () => {
                                         The best attraction type is!
                                     </div>
                                     <div>
-                                    {attractions.map((attraction) => (
-                                        <div>
-                                            <div>{attraction.Name}</div>
-                                            <div>{attraction.Id}</div>
-                                            <div>{attraction.Address}</div>
-                                            <div>{attraction.Opening_Hours}</div>
-                                            <div>{attraction.URL}</div>
-                                        </div>
-                                    ))}
+                                        {attractions.map((attraction) => (
+                                            <div style={{border: '1px solid black'}}>
+                                                <div>{attraction.Name}</div>
+                                                <div>{attraction.Id}</div>
+                                                <div>{attraction.Address}</div>
+                                                <div>{attraction.Opening_Hours}</div>
+                                                <div>{attraction.URL}</div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             )

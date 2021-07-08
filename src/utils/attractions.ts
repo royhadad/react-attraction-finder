@@ -1,4 +1,4 @@
-import Attraction from "../types/Attraction";
+import Attraction, {AttractionWithDistanceFromUser} from "../types/Attraction";
 import Location from "../types/Location";
 import {distanceInKmBetweenEarthCoordinates} from "./locations";
 
@@ -6,12 +6,15 @@ function getAttractionLocation(attraction: Attraction): Location {
     return {longitude: attraction.X, latitude: attraction.Y};
 }
 
-// Can be optimized by pre-calculating all of the distances and then sorting,
-// in case of a performance issue - this can be implemented
-export function getAttractionsSortedByDistanceFromUserLocation(userLocation: Location, attractions: Attraction[]): Attraction[] {
+export function getAttractionWithDistanceFromUser(userLocation: Location, attraction: Attraction): AttractionWithDistanceFromUser {
+    return {
+        ...attraction,
+        distanceFromUser: distanceInKmBetweenEarthCoordinates(userLocation, getAttractionLocation(attraction))
+    };
+}
+
+export function getAttractionsSortedByDistanceFromUserLocation(userLocation: Location, attractions: AttractionWithDistanceFromUser[]): AttractionWithDistanceFromUser[] {
     return attractions.sort((attraction1, attraction2) => {
-        const attraction1Distance = distanceInKmBetweenEarthCoordinates(userLocation, getAttractionLocation(attraction1))
-        const attraction2Distance = distanceInKmBetweenEarthCoordinates(userLocation, getAttractionLocation(attraction2))
-        return attraction1Distance - attraction2Distance;
+        return attraction1.distanceFromUser - attraction2.distanceFromUser;
     })
 }
