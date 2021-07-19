@@ -29,7 +29,6 @@ const Search: React.FC = () => {
     const [attractions, setAttractions] = useState<AttractionWithDistanceFromUser[] | undefined>(undefined);
     const [mostCommonAttractionTypeIn40KMRadius, setMostCommonAttractionTypeIn40KMRadius] = useState<AttractionType | undefined>(undefined);
     const [isMostCommonAttractionTypeSelected, toggleIsMostCommonAttractionTypeSelected] = useToggle(false);
-    // Gets the items from local storage on initial render
     const [favoriteAttractions, setFavoriteAttractions] = useState<FavoriteAttractions>(getFavoriteAttractionsFromLocalStorage);
 
     useEffect(function fetchAttractionsOnMount(): void {
