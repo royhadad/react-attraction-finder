@@ -17,6 +17,10 @@ import text from "./text";
 const LOCAL_STORAGE_FAVORITES_KEY = 'favoriteAttractions';
 type FavoriteAttractions = Record<Attraction['Id'], boolean>;
 
+function getFavoriteAttractionsFromLocalStorage(): FavoriteAttractions {
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY) || "{}");
+}
+
 const Search: React.FC = () => {
     const classes = styles();
     const history = useHistory();
@@ -26,7 +30,7 @@ const Search: React.FC = () => {
     const [mostCommonAttractionTypeIn40KMRadius, setMostCommonAttractionTypeIn40KMRadius] = useState<AttractionType | undefined>(undefined);
     const [isMostCommonAttractionTypeSelected, toggleIsMostCommonAttractionTypeSelected] = useToggle(false);
     // Gets the items from local storage on initial render
-    const [favoriteAttractions, setFavoriteAttractions] = useState<FavoriteAttractions>(JSON.parse(localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY) || "{}") as FavoriteAttractions);
+    const [favoriteAttractions, setFavoriteAttractions] = useState<FavoriteAttractions>(getFavoriteAttractionsFromLocalStorage);
 
     useEffect(function fetchAttractionsOnMount(): void {
         const fetchAttractions = async (): Promise<void> => {
